@@ -10,7 +10,6 @@ import time
 
 import numpy as np
 import pandas as pd
-# import open3d as o3d
 from scipy.interpolate import interp1d
 
 from UDP_class import UDP_class
@@ -251,7 +250,7 @@ class Pcap2pcd(UDP_class):
             body_datas['calibrated_azi'] = delta_azi + body_datas['azimuth'] / 100
             body_datas['elevation'] = ele_correction[body_datas['laser_id']]
 
-        pcd_datas = np.zeros((body_lens, 4), dtype=np.float)
+        pcd_datas = np.zeros((body_lens, 4), dtype=np.float16)
         pcd_datas[:, 2] = np.sin(np.deg2rad(body_datas['elevation'])) * body_datas['distance']
         pcd_datas[:, 0] = np.cos(np.deg2rad(body_datas['elevation'])) * body_datas['distance'] * np.sin(
             np.deg2rad(body_datas['calibrated_azi']))
@@ -285,7 +284,7 @@ DATA ascii
         return pcd_name
 
     def transfer_utc_time(self, *args):
-        x = list(args) + [0, 0, 0]
+        x = [int(a) for a in args] + [0, 0, 0]
         if x[0] < 100:
             x[0] = x[0] + 1970
         else:

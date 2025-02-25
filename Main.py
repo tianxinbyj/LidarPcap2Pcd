@@ -30,6 +30,7 @@ if __name__ == '__main__':
         pcd_name = lidar.parse_frame_data_pcd(dataBytes)
         frame_index += 1
         print(cur_pos, frame_index, pcd_name)
+        break
         # if frame_index == 10:
         #     break
 

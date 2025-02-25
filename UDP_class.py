@@ -362,17 +362,18 @@ class UDP_class:
         # 每包的角度
         self.azm_one_udp = self.standard_resolution * (self.block_num / self.return_mode)
         # 每包的时间间隔
-        self.udp_deltatime = self.azm_one_udp / 100 / (360 * self.motor_speed / 60)
+        self.udp_deltatime = self.azm_one_udp / 100 / (360 * float(self.motor_speed) / 60)
         # 计算的分辨率
         self.resolution = np.round(np.mean(norm_azm), 1) / (self.block_num / self.return_mode)
         # 发光角度范围
-        azm_list = list(set(azm_series))
+        azm_list = [int(a) for a in set(azm_series)]
         azm_list.sort()
         azm_set = [-510, *azm_list, 36510]
         end_angle = [azm_set[i] / 100 for i in range(len(azm_set) - 1) if azm_set[i + 1] - azm_set[i] > 500]
         start_angle = [azm_set[i + 1] / 100 for i in range(len(azm_set) - 1) if azm_set[i + 1] - azm_set[i] > 50]
         self.start_angle = start_angle[:-1]
         self.end_angle = end_angle[1:]
+        print(end_angle)
         self.firing_area = [[a, b] for a, b in zip(start_angle[:-1], end_angle[1:])]
         self.firing_udp_number = [(b - a) / self.azm_one_udp * 100 for a, b in zip(start_angle[:-1], end_angle[1:])]
         self.udp_per_frame = np.mean(self.firing_udp_number)
