@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     # 1. 选择pcap文件
     # pcap_file = '/home/buyujun/Downloads/n00015-2022-11-21-19-38-26-21_Pandar128.pcap'
-    pcap_file = '/home/buyujun/Downloads/20221109102807_395462512.pcap'
+    pcap_file = '/home/zhangliwei01/ZONE/Lidar/Pandar128/n000003_2023-06-02-14-57-55-120_Pandar128.pcap'
     lidar = Pcap2pcd(pcap_file)
 
     # 2. 自动加载角度文件

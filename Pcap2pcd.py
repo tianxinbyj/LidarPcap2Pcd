@@ -237,7 +237,7 @@ class Pcap2pcd(UDP_class):
             body_datas['elevation'] = ele_correction[body_datas['laser_id']] + delta_ele
 
         elif self.udp_key == '1.4.128':
-            azi_flag_array = np.zeros(shape=(data_lens * self.block_num,), dtype='uint8')
+            azi_flag_array = np.zeros(shape=(data_lens * int(self.block_num),), dtype='uint8')
             azi_flag_array[::2, ] = udps['tail']['azimuth_flag'] >> 6
             azi_flag_array[1::2, ] = ((udps['tail']['azimuth_flag'] >> 4) & 0b0011)
 
